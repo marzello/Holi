@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Mensaje especial</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #ff9a9e, #fad0c4);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      text-align: center;
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      max-width: 400px;
+      width: 90%;
+      z-index: 1;
+      position: relative;
+    }
+
+    input {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      width: 100%;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #ff6b81;
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #ff4757;
+    }
+
+    .mensaje {
+      display: none;
+      font-size: 24px;
+      color: #ff4757;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: scale(0.95);}
+      to {opacity: 1; transform: scale(1);}
+    }
+
+    .heart {
+      position: fixed;
+      bottom: -20px;
+      font-size: 20px;
+      color: #ff5e78;
+      animation: floatUp 6s linear forwards;
+      z-index: 0;
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-110vh) scale(1.5);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div id="input-fecha">
+      <p>Ingresa la fecha:</p>
+      <input type="text" id="fecha" placeholder="DD/MM/AAAA">
+      <button onclick="verificarFecha()">Enviar</button>
+    </div>
+
+    <div class="mensaje" id="mensaje-bonito">
+      Hola corazón, eres la mejor 💖
+    </div>
+  </div>
+
+  <script>
+    function verificarFecha() {
+      const fecha = document.getElementById('fecha').value.trim();
+      const esperado = '27/05/2023';
+      if (fecha === esperado) {
+        document.getElementById('input-fecha').style.display = 'none';
+        document.getElementById('mensaje-bonito').style.display = 'block';
+        iniciarCorazones(); // Activar los corazones
+      } else {
+        alert("Fecha incorrecta. Intenta de nuevo 😊");
+      }
+    }
+
+    function iniciarCorazones() {
+      setInterval(crearCorazones, 1000);
+    }
+
+    function crearCorazones() {
+      const cantidad = 10;
+      for (let i = 0; i < cantidad; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.innerHTML = '💖';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.fontSize = (Math.random() * 10 + 15) + 'px';
+        heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+        heart.style.animationDelay = (Math.random() * 2) + 's';
+        document.body.appendChild(heart);
+
+        // Eliminar después de que termine la animación
+        setTimeout(() => {
+          heart.remove();
+        }, 8000);
+      }
+    }
+  </script>
+
+</body>
+</html>
